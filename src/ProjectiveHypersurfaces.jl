@@ -72,7 +72,7 @@ Compute the polar discriminant of the hypersurface family defined by F.
 ## Example
 
 ```jldoctest
-julia> d, m = 2,5
+julia> d, m = 2, 5
 (2, 5)
 
 julia> Rz, z = graded_polynomial_ring(QQ,["z$i" for i = 1:m+1])
