@@ -8,7 +8,7 @@ export get_stratum_equations, get_stratum_numerically, univariate_strata, univar
 @doc raw"""
     get_stratum_equations(stratum::Tuple{Vector{Int}, Tuple{Int, Int}}; K=QQ)
 
-Return generators of the ideal of the Euler stratum of the form ([λ],(m_0,m_∞)),
+Return generators of the ideal of the Euler stratum of the form ([λ],(m\_0,m\_∞)),
 optionally choose field K
 
 ## Example
@@ -139,9 +139,9 @@ end
     get_strata_numerically(stratum::Tuple{Vector{Int}, Tuple{Int, Int}}; K=QQ, max_deg=-1, verbose=false)
 
 Return generators of the ideal for Euler stratum by interpolation
-if max_deg is provided, look for generators of degree <= max_deg
+if max\_deg is provided, look for generators of degree <= max\_deg
 if not, stop when the ideal has expected dimension and degree
-if test_equidimensional, also check for equidimensionality via numerical
+if test\_equidimensional, also check for equidimensionality via numerical
 irreducible decomposition
 
 ## Example
