@@ -7,7 +7,7 @@ export get_stratum_smooth_curve
     get_stratum_smooth_curve(f::MPolyRingElem, k::Int)
 
 Given a homogeneous polynomial f in 3 variables defining a smooth plane curve,
-output polynomials defining the locus where the hyperplane c\_1*x + c\_2*y + c\_3*z intersects V(f) in deg(f)-k many points.
+output polynomials defining the locus where the hyperplane c\_1\*x + c\_2\*y + c\_3\*z intersects V(f) in deg(f)-k many points.
 
 ## Example 
 
