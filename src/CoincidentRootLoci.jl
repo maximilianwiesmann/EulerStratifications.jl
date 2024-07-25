@@ -275,7 +275,7 @@ computation is done symbolically unless numerically=true, then use interpolation
 computation of discriminants and strata with partitions of the form (2,2,1,...) 
 can be turned off (saves time)
 a dictionary with maximal degrees can be provided, then the interpolation gets 
-polynomials up to the max_deg provided
+polynomials up to the max\_deg provided
 
 ## Example
 
@@ -390,7 +390,7 @@ computation is done symbolically unless numerically=true, then use interpolation
 computation of discriminants and strata with partitions of the form (2,2,1,...) 
 can be turned off (saves time)
 a dictionary with maximal degrees can be provided, then the interpolation gets 
-polynomials up to the max_deg provided
+polynomials up to the max\_deg provided
 
 ##Example
 

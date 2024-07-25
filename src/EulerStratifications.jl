@@ -13,7 +13,7 @@ include("VeryAffineHypersurfaces.jl")
 @doc raw"""
     euler_stratify(F::MPolyRingElem, Rz::MPolyRing, Rx::MPolyRing, Iz::MPolyIdeal; very_affine=false, max_layers=Inf, randrange=-100:100, verbose=false)
 
-Compute the complete Euler stratification for the hypersurface family defined by F, either in projective space or in the algebraic torus (very_affine=true). Optionally limit the number of iterated Euler discriminant computations (max_layers).
+Compute the complete Euler stratification for the hypersurface family defined by F, either in projective space or in the algebraic torus (very\_affine=true). Optionally limit the number of iterated Euler discriminant computations (max\_layers).
 
 ## Example
 
@@ -72,7 +72,7 @@ end
 @doc raw"""
     get_generic_euler_char(stratum_ideal::MPolyIdeal, F::MPolyRingElem; very_affine=false)
 
-Compute the signed Euler characteristic of a general member of a family of hypersurface complements, restricted to the stratum defined by stratum_ideal of an Euler stratification. Optionally do this for a hypersurface complement in the algebraic torus (very_affine=true)
+Compute the signed Euler characteristic of a general member of a family of hypersurface complements, restricted to the stratum defined by stratum\_ideal of an Euler stratification. Optionally do this for a hypersurface complement in the algebraic torus (very\_affine=true)
 
 ## Example
 
