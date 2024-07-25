@@ -6,7 +6,7 @@ using LinearAlgebra
 export get_euler_char, get_polar_discriminant, get_euler_discriminant_proj
 
 
-"""
+@doc raw"""
     get_euler_char(F::Expression; method = :restrict)
 
 Compute the Euler characteristic of a hypersurface complement defined by F.
@@ -64,7 +64,7 @@ function get_euler_char(F; method = :restrict)
 end
 
 
-""" 
+@doc raw""" 
     get_polar_discriminant(F::MPolyRingElem, Rz::MPolyRing, Rx::MPolyRing, Iz::MPolyIdeal; decompose=true, randrange=-100:100, verbose=false)
 
 Compute the polar discriminant of the hypersurface family defined by F.
@@ -119,7 +119,7 @@ function get_polar_discriminant(F, Rz, Rx, Iz; decompose=true, randrange=-100:10
 end
 
 
-"""
+@doc raw"""
     get_euler_discriminant_proj(F::MPolyRingElem, Rz::MPolyRing, Rx::MPolyRing, Iz::MPolyIdeal; randrange=-100:100, verbose=false)
 
 Compute the Euler discriminant of the hypersurface family defined by F in projective space.
@@ -130,11 +130,11 @@ Compute the Euler discriminant of the hypersurface family defined by F in projec
 julia> d, m = 2,5
 (2, 5)
 
-julia> Rz, z = graded_polynomial_ring(QQ,["z$i" for i = 1:m+1])
-(Graded multivariate polynomial ring in 6 variables over QQ, MPolyDecRingElem{QQFieldElem, QQMPolyRingElem}[z1, z2, z3, z4, z5, z6])
+julia> Rz, z = graded_polynomial_ring(QQ, "z" => 1:m+1)
+(Graded multivariate polynomial ring in 6 variables over QQ, MPolyDecRingElem{QQFieldElem, QQMPolyRingElem}[z[1], z[2], z[3], z[4], z[5], z[6]])
 
-julia> Rx, x = polynomial_ring(Rz,["x$i" for i = 1:d+1])
-(Multivariate polynomial ring in 3 variables over Rz, AbstractAlgebra.Generic.MPoly{MPolyDecRingElem{QQFieldElem, QQMPolyRingElem}}[x1, x2, x3])
+julia> Rx, x = polynomial_ring(Rz, "x" => 1:d+1)
+(Multivariate polynomial ring in 3 variables over Rz, AbstractAlgebra.Generic.MPoly{MPolyDecRingElem{QQFieldElem, QQMPolyRingElem}}[x[1], x[2], x[3]])
 
 julia> F = z[1]*x[1]^2 + z[2]*x[1]*x[2] + z[3]*x[1]*x[3] + z[4]*x[2]^2 + z[5]*x[2]*x[3] + z[6]*x[3]^2
 z1*x1^2 + z2*x1*x2 + z3*x1*x3 + z4*x2^2 + z5*x2*x3 + z6*x3^2
