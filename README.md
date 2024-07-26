@@ -28,4 +28,4 @@ using HomotopyContinuation
 
 Checkout the [MathRepo page](https://mathrepo.mis.mpg.de/EulerStratifications/index.html) with detailed examples that reproduce all computations from the paper [Euler Stratifications of Hypersurface Families](https://arxiv.org/abs/2407.18176).
 
-Type `?`` in the Julia terminal followed by the function name to read the function documentation.
+Type `?` in the Julia terminal followed by the function name to read the function documentation.
