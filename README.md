@@ -14,3 +14,14 @@ import Pkg
 Pkg.add(url="https://github.com/maximilianwiesmann/EulerStratifications.jl")
 using EulerStratifications
 ```
+
+You might also want to use the computer algebra software package [Oscar](https://docs.oscar-system.org/stable/) and the numerical algebraic geometry package [HomotopyContinuation](https://www.juliahomotopycontinuation.org/HomotopyContinuation.jl/stable/):
+
+```julia
+using Oscar
+using HomotopyContinuation
+```
+
+```@docs
+get_stratum_numerically
+```
