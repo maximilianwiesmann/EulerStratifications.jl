@@ -40,46 +40,59 @@ julia> get_euler_discriminant_veryaff(f, Rz, Rx, Iz)
 ```
 """
 function get_euler_discriminant_veryaff(f, Rz, Rx, Iz; randrange=-100:100, verbose=false)
-    dimZ = Oscar.dim(Iz)-1
-    d = length(gens(Rx))-1
-    Ft, R, x, z, w, psi, phi = to_big_ring(f,Rx,Rz)
-    comps = []
-    dimZ = Oscar.dim(Iz) - 1 
-    for i = 1:d+1
-        if verbose 
-            println("i = $i out of $(d+1)")
-        end
-        nu = rand(randrange,d+1) 
-        eqs = [nu[i]*Ft - nu[end]*x[i]*derivative(Ft,x[i]) for i = 1:d]
-        if verbose 
-            println("boundary f = 0")
-        end
-        J = psi(Iz) + ideal([eqs;Ft*w-1])
-        I = eliminate(J,[w])
-        for j = 1:d+1
-            if i != j
-                if verbose 
-                    println("boundary x$j = 0")
-                end
-                J = I + ideal([x[j]*w-1])
-                I = eliminate(J,[w])
-            end
-        end
-        E = I + ideal([prod(x)*Ft])
-        E = E + ideal([x[i]-1])
-        if verbose
-            println("computed closure ")
-        end
-        EE = eliminate(E,x)
-        if verbose
-            println("eliminated ")
-        end
-        push!(comps,minimal_primes(EE)...)
-        comps = own_unique!(comps)
+    d = length(gens(Rx))
+    n = length(gens(Rz)) - 1
+
+    # homogenize f if necessary:
+    E = collect(exponents(f))
+    degf = maximum([sum(e[1:d]) for e in E])
+    w = degf .- [sum(e[1][1:d]) for e in collect.(exponents.(terms(f)))]
+    if sum(w) != 0
+        d = d+1
     end
-    unique_comps = own_unique!(comps)
-    phi = hom(R,Rz,[Rz.(ones(Int,d+1));gens(Rz);Rz(1)])
-    return Vector{MPolyIdeal}([phi(uc) for uc in unique_comps])
+    KK = base_ring(base_ring(parent(f)))
+    # y is an auxiliary variable for saturation
+    R, x, z, y = polynomial_ring(KK, :x=>1:d, :z=>1:n+1, :y=>1:1) 
+    y = y[1]
+    ϕ = hom(Rz, R, z)
+    C = collect(Oscar.coefficients(f))
+    fh = R(0)
+    if sum(w) != 0
+        fh = sum([Oscar.evaluate(C[i],z)*prod(x[1:d-1].^E[i])*x[d]^wi for (i, wi) in enumerate(w)])
+    else
+        fh = sum([Oscar.evaluate(C[i],z)*prod(x[1:d].^E[i]) for i in 1:length(w)])
+    end
+    Iz_bigring = ϕ(Iz)
+
+    # likelihood ideal 
+    ν = rand(randrange, d)
+    I = ideal([ν[d]*x[i]*derivative(fh,x[i]) - ν[i]*fh for i = 1:d-1]) + Iz_bigring
+
+    J = I
+    for i = 1:d
+        if verbose
+            println("saturating by variable $i out of $(d)")
+        end
+        J = eliminate(J+ideal(y*x[i]-1), [y])   # saturating this way is faster
+    end
+
+    if verbose
+        println("now saturating by f...")
+    end
+    K = eliminate(J+ideal(y*fh-1), [y])   # this is the closure in \mathbb{P}^n \times Z
+
+    K = K + ideal(fh)
+    H = ideal([R(1)])
+    for i = 1:d
+        if verbose
+            println("eliminating on chart $i out of $(d)")
+        end
+        H = intersect(H, eliminate(K+ideal([x[i]-1]), x))
+    end
+
+    ψ = hom(R, Rz, [Rz.(ones(Int,d)); gens(Rz); Rz(Int(1))])
+    unique_comps = own_unique!(minimal_primes(H))
+    return Vector{MPolyIdeal}([ψ(uc) for uc in unique_comps])
 end
 
 
