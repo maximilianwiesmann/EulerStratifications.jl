@@ -126,15 +126,6 @@ function numerical_univariate_stratum(d, A, stratum; K=QQ, verbose=false)
     return gens
 end
 
-
-# convert Oscar polynomial f into HomotopyContinuation expression in vars
-function oscar_to_HC_Q(f, vars)
-    cffs = convert.(Rational{Int64},collect(Oscar.coefficients(f)))
-    exps = collect(Oscar.exponents(f))
-    sum([cffs[i]*prod(vars.^exps[i]) for i = 1:length(cffs)])
-end
-
-
 @doc raw"""
     get_strata_numerically(stratum::Tuple{Vector{Int}, Tuple{Int, Int}}; K=QQ, max_deg=-1, verbose=false)
 
