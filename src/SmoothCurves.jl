@@ -45,17 +45,17 @@ function get_stratum_smooth_curve(f, k)
     I = ideal([X - derivative(f, x), Y - derivative(f, y), Z - derivative(f, z)]) + ideal([f])
     Cdual = eliminate(I, [x,y,z])
 
-    S, z = graded_polynomial_ring(QQ, ["z$i" for i in 0:2])
-    K = fraction_field(S)
+    K, z = rational_function_field(QQ, ["z$i" for i in 0:2])
     T, (X,Y,Z) = polynomial_ring(K, ["X", "Y", "Z"])
     phi = hom(R, T, vcat(T.(Int.(zeros(3))), [X,Y,Z]))
     Cdual = phi(Cdual)
-    H = ideal([X - z[1]//1, Y - z[2]//1, Z - z[3]//1])
+    H = ideal([X - z[1], Y - z[2], Z - z[3]])
 
     F = gens(Cdual)[1]
     Q, pho = quo(T, H^k)
     M = monomial_basis(Q)
     comp_matrix_entries = vcat([collect(Oscar.coefficients(lift(simplify(pho(F*m))))) for m in M]...)
+    S, z = graded_polynomial_ring(QQ, ["z$i" for i in 0:2])
     J = ideal(S.(numerator.(comp_matrix_entries)))
     return minimal_generating_set(J)
 end
